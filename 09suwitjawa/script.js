@@ -13,15 +13,17 @@ function getHasil(comp, player) {
   if (player == "semut") return comp == "orang" ? "KALAH!" : "MENANG!";
 }
 
-const pGajah = document.querySelector(".gajah");
-pGajah.addEventListener("click", function () {
-  const pilihanComputer = getPilihanComputer();
-  const pilihanPlayer = pGajah.className;
-  const hasil = getHasil(pilihanComputer, pilihanPlayer);
+const pilihan = document.querySelectorAll("li img");
+pilihan.forEach(function (pill) {
+  pill.addEventListener("click", function () {
+    const pilihanComputer = getPilihanComputer();
+    const pilihanPlayer = pill.className;
+    const hasil = getHasil(pilihanComputer, pilihanPlayer);
 
-  const imgComputer = document.querySelector(".img-computer");
-  imgComputer.setAttribute("src", "img/" + pilihanComputer + ".png");
+    const imgComputer = document.querySelector(".img-computer");
+    imgComputer.setAttribute("src", "img/" + pilihanComputer + ".png");
 
-  const info = document.querySelector(".info");
-  info.innerHTML = hasil;
+    const info = document.querySelector(".info");
+    info.innerHTML = hasil;
+  });
 });
