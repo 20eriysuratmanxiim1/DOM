@@ -6,11 +6,59 @@ function getPilihanComputer() {
   return "semut";
 }
 
-function getHasil(comp, player) {
-  if (player == comp) return "SERI!";
-  if (player == "gajah") return comp == "orang" ? "MENANG!" : "KALAH!";
-  if (player == "orang") return comp == "gajah" ? "KALAH!" : "MENANG!";
-  if (player == "semut") return comp == "orang" ? "KALAH!" : "MENANG!";
+const scoreComputer = document.querySelector(".score-computer");
+let scoreComputerCount = 0;
+const scorePlayer = document.querySelector(".score-player");
+let scorePlayerCount = 0;
+
+function getHasil(computer, player) {
+  if (player === computer) {
+    return "SERI";
+  }
+  // if (player === 'semut') return (computer === 'orang')? 'KALAH' : 'MENANG!';
+  else if (player === "semut") {
+    if (computer === "orang") {
+      scoreComputerCount += 1;
+      return "KALAH";
+    } else {
+      scorePlayerCount += 1;
+      return "MENANG!";
+    }
+  }
+  // if (player === 'orang') return (computer === 'semut')? 'MENANG!' : 'KALAH';
+  else if (player === "orang") {
+    if (computer === "semut") {
+      scorePlayerCount += 1;
+      return "MENANG!";
+    } else {
+      scoreComputerCount += 1;
+      return "KALAH";
+    }
+  }
+  // if (player === 'gajah') return (computer === 'orang')? 'MENANG!' : 'KALAH';
+  else if (player === "gajah") {
+    if (computer === "orang") {
+      scorePlayerCount += 1;
+      return "MENANG!";
+    } else {
+      scoreComputerCount += 1;
+      return "KALAH";
+    }
+  }
+}
+function putar() {
+  const imgComputer = document.querySelector(".img-computer");
+  const gambar = ["gajah", "semut", "orang"];
+  let i = 0;
+  const waktuMulai = new Date().getTime();
+  setInterval(function () {
+    if (new Date().getTime() - waktuMulai > 1000) {
+      clearInterval;
+      return;
+    }
+    imgComputer.setAttribute("src", "img/" + gambar[i++] + ".png");
+    if (i == gambar.length) i = 0;
+  }, 100);
 }
 
 const pilihan = document.querySelectorAll("li img");
@@ -20,10 +68,17 @@ pilihan.forEach(function (pill) {
     const pilihanPlayer = pill.className;
     const hasil = getHasil(pilihanComputer, pilihanPlayer);
 
-    const imgComputer = document.querySelector(".img-computer");
-    imgComputer.setAttribute("src", "img/" + pilihanComputer + ".png");
+    putar();
 
-    const info = document.querySelector(".info");
-    info.innerHTML = hasil;
+    setTimeout(function () {
+      const imgComputer = document.querySelector(".img-computer");
+      imgComputer.setAttribute("src", "img/" + pilihanComputer + ".png");
+
+      const info = document.querySelector(".info");
+      info.innerHTML = hasil;
+
+      scoreComputer.innerHTML = scoreComputerCount;
+      scorePlayer.innerHTML = scorePlayerCount;
+    }, 1000);
   });
 });

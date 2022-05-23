@@ -251,3 +251,15 @@ img {
 .orang:active {
   top: 2px;
 }
+.arena-score {
+  font-size: 100px;
+  text-align: center;
+  line-height: 200px;
+  margin: auto;
+}
+.score-computer {
+  color: rgba(41, 184, 229, 1);
+}
+.score-player {
+  color: rgba(145, 232, 66, 1);
+}
